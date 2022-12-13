@@ -1,0 +1,13 @@
+AccountingReports
+Admin
+Departments
+Identity
+kop.txt
+Orders
+PurchaseReports
+Roles
+Session
+StockReports
+Users
+_ViewImports.cshtml
+_ViewStart.cshtml

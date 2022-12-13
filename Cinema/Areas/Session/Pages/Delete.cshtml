@@ -1,0 +1,40 @@
+﻿@page "{id:long}"
+@model Cinema.Areas.Session.Pages.DeleteModel
+
+@{
+    ViewData["Title"] = "Удаление билета";
+}
+
+<h1>Удалить</h1>
+
+<h3>Вы действительно хотите удалить билет?</h3>
+<div>
+    <h4>Ticket</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ticket.SeatNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ticket.SeatNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ticket.IsBought)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ticket.IsBought)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ticket.Session)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ticket.Session!.MovieName)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Ticket.Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-page="./Index" asp-route-id="@Model.SessionId">Вернуться к списку</a>
+    </form>
+</div>

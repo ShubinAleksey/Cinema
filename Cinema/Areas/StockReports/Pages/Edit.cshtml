@@ -1,0 +1,45 @@
+﻿@page
+@model Cinema.Areas.StockReports.Pages.EditModel
+
+@{
+    ViewData["Title"] = "Редактирование";
+}
+
+<h1>Редактировать</h1>
+
+<h4>Отчёт по складу</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StockReport.Name" class="control-label"></label>
+                <input asp-for="StockReport.Name" class="form-control" />
+                <span asp-validation-for="StockReport.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockReport.Type" class="control-label"></label>
+                <input asp-for="StockReport.Type" class="form-control" />
+                <span asp-validation-for="StockReport.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockReport.Amount" class="control-label"></label>
+                <input asp-for="StockReport.Amount" class="form-control" />
+                <span asp-validation-for="StockReport.Amount" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="StockReport.Id" />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Вернуться к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

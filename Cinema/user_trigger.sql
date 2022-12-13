@@ -1,0 +1,2 @@
+﻿CREATE TRIGGER user_trigger
+AFTER INSERT ON "AspNetUsers" FOR EACH ROW EXECUTE PROCEDURE log_new_users();

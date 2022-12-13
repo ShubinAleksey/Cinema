@@ -1,0 +1,5 @@
+kop.txt
+_Layout.cshtml
+_Layout.cshtml.css
+_LoginPartial.cshtml
+_ValidationScriptsPartial.cshtml

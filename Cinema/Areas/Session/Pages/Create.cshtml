@@ -1,0 +1,48 @@
+﻿@page "{id:long}"
+@model Cinema.Areas.Session.Pages.CreateModel
+
+@{
+    ViewData["Title"] = "Добавление";
+}
+
+<h1>Добавить</h1>
+
+<h4>Билет</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ticket.SessionId" class="control-label"></label>
+                <select asp-for="Ticket.SessionId" class ="form-control" asp-items="ViewBag.SessionId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.RowNumber" class="control-label"></label>
+                <input asp-for="Ticket.RowNumber" class="form-control" />
+                <span asp-validation-for="Ticket.RowNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.SeatNumber" class="control-label"></label>
+                <input asp-for="Ticket.SeatNumber" class="form-control" />
+                <span asp-validation-for="Ticket.SeatNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Ticket.IsBought" /> @Html.DisplayNameFor(model => model.Ticket.IsBought)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index" asp-route-id=@Model.Id>Вернуться к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

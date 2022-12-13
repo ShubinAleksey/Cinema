@@ -1,0 +1,37 @@
+﻿@page
+@model Cinema.Areas.PurchaseReports.Pages.ChartModel
+@{
+    ViewData["Title"] = "Графики";
+}
+
+<div style="width:600px;">
+    <canvas id="myChart"></canvas>
+</div>
+
+<div>
+    <a asp-page="Index">Вернуться к списку</a>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [@Html.Raw("'" + String.Join("','", (Model.Datalist.Select(x => x.Label).ToList())) + "'")],
+                datasets: [{
+                    label: 'Кол-во отчётов по отделам',
+                    backgroundColor: [
+                        'rgb(51, 255, 51)',
+                        'rgb(255, 255, 51)',
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    data: [@Html.Raw("'" + String.Join("','", (Model.Datalist.Select(x => x.Data).ToList())) + "'")]
+                }]
+            }
+        });
+    </script>
+}

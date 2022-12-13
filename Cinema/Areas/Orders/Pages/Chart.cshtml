@@ -1,0 +1,50 @@
+﻿@page
+@model Cinema.Areas.Orders.Pages.ChartModel
+@{
+    ViewData["Title"] = "Графики";
+}
+
+<div style="width:600px;">
+    <canvas id="userChart"></canvas>
+</div>
+<div style="width:600px;">
+    <canvas id="movieChart"></canvas>
+</div>
+
+<div>
+    <a asp-page="Index">Вернуться к списку</a>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('userChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw("'" + String.Join("','", (Model.UserChart.Select(x => x.Label).ToList())) + "'")],
+                datasets: [{
+                    label: 'Кол-во покупок пользователя',
+                    backgroundColor: 'rgb(51, 255, 51)',
+                    borderColor: 'rgb(51, 255, 51)',
+                    data: [@Html.Raw("'" + String.Join("','", (Model.UserChart.Select(x => x.Data).ToList())) + "'")]
+                }]
+            }
+        });
+    </script>
+    <script>
+        var ctx = document.getElementById('movieChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [@Html.Raw("'" + String.Join("','", (Model.MovieChart.Select(x => x.Label).ToList())) + "'")],
+                datasets: [{
+                    label: 'Кол-во продаж билетов по фильму',
+                    backgroundColor: 'rgb(255, 255, 51)',
+                    borderColor: 'rgb(255, 255, 51)',
+                    data: [@Html.Raw("'" + String.Join("','", (Model.MovieChart.Select(x => x.Data).ToList())) + "'")]
+                }]
+            }
+        });
+    </script>
+}

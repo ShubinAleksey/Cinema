@@ -1,0 +1,92 @@
+﻿@page
+@model Cinema.Areas.AccountingReports.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Ведомости";
+}
+
+<h1>Расчётная ведомость</h1>
+
+<p>
+    <a asp-page="Create">Добавить</a>
+    <a asp-page="Chart">Перейти к графикам</a>
+</p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Поиск по имени отчёта:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Искать" class="btn btn-primary" /> |
+            <a asp-page="./Index">Вернуться к полному списку</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.IdSort">
+                    @Html.DisplayNameFor(model => model.AccountingReport[0].Id)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.AccountingReport[0].Name)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountingReport[0].Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountingReport[0].Bonus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountingReport[0].Absence)
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TotalSort">
+                    @Html.DisplayNameFor(model => model.AccountingReport[0].Total)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.EmployeeNameSort">
+                    @Html.DisplayNameFor(model => model.AccountingReport[0].Employee)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.AccountingReport) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bonus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Absence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee!.UserName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Детали</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

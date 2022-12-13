@@ -1,0 +1,47 @@
+﻿@page
+@model Cinema.Areas.Users.Pages.EditRolesModel
+@{
+    ViewData["Title"] = "Редактирование пользователя";
+}
+
+<h1>Редактировать</h1>
+
+<h4>Роли пользователя @Model.UserName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                @{
+                    int i = 0;
+                }
+                @foreach (var x in Model.UserRoles)
+                {
+                    <div class="form-check m-1">
+                        <input type="hidden" asp-for="@x.RoleId" name="[@i].RoleId" />
+                        <input type="hidden" asp-for="@x.RoleName" name="[@i].RoleName" />
+                        <input asp-for="@x.Selected" name="[@i].Selected" class="form-check-input" onclick="$(this).val(this.checked ? true : false)" />
+                        <label class="form-check-label" asp-for="@x.Selected">
+                            @x.RoleName
+                        </label>
+                    </div>
+                    i++;
+                }
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Вернуться к списку</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

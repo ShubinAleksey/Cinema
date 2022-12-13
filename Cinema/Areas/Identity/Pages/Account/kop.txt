@@ -1,0 +1,9 @@
+kop.txt
+Login.cshtml
+Login.cshtml.cs
+Logout.cshtml
+Logout.cshtml.cs
+Manage
+Register.cshtml
+Register.cshtml.cs
+_ViewImports.cshtml

@@ -1,0 +1,6 @@
+Index.cshtml
+Index.cshtml.cs
+kop.txt
+ManageNavPages.cs
+_ManageNav.cshtml
+_ViewImports.cshtml

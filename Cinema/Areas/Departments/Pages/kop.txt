@@ -1,0 +1,11 @@
+Create.cshtml
+Create.cshtml.cs
+Delete.cshtml
+Delete.cshtml.cs
+Details.cshtml
+Details.cshtml.cs
+Edit.cshtml
+Edit.cshtml.cs
+Index.cshtml
+Index.cshtml.cs
+kop.txt

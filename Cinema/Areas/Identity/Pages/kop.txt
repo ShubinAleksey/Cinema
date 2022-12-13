@@ -1,0 +1,5 @@
+Account
+kop.txt
+_ValidationScriptsPartial.cshtml
+_ViewImports.cshtml
+_ViewStart.cshtml

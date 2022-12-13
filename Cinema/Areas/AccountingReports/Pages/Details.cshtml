@@ -1,0 +1,55 @@
+﻿@page
+@model Cinema.Areas.AccountingReports.Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Детали";
+}
+
+<h1>Детали</h1>
+
+<div>
+    <h4>Расчётная ведомость</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountingReport.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountingReport.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountingReport.Salary)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountingReport.Salary)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountingReport.Bonus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountingReport.Bonus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountingReport.Absence)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountingReport.Absence)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountingReport.Total)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountingReport.Total)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountingReport.Employee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountingReport.Employee!.UserName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.AccountingReport?.Id">Edit</a> |
+    <a asp-page="./Index">Вернуться к списку</a>
+</div>

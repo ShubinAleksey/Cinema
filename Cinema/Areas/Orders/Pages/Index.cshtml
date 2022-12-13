@@ -1,0 +1,131 @@
+﻿@page
+@model Cinema.Areas.Orders.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Заказы";
+}
+
+<h1>Заказы</h1>
+
+@if (User.IsInRole("SalesManager") || User.IsInRole("Administrator"))
+{
+    <a asp-page="Chart">Перейти к графикам</a>
+}
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Поиск по фильмам:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Искать" class="btn btn-primary" /> |
+            <a asp-page="./Index">Вернуться к полному списку</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            @if (User.IsInRole("SalesManager") || User.IsInRole("Administrator"))
+            {
+                <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.IdSort">
+                        @Html.DisplayNameFor(model => model.Order[0].Id)
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.TicketIdSort">
+                        @Html.DisplayNameFor(model => model.Order[0].TicketId)
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.BuyerNameSort">
+                        Имя покупателя
+                    </a>
+                </th>
+            }
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.MovieNameSort">
+                    @Html.DisplayNameFor(model => model.Order[0].Ticket.Session.MovieName)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.SessionTimeSort">
+                    @Html.DisplayNameFor(model => model.Order[0].Ticket.Session.SessionTime)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Ticket.RowNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Ticket.SeatNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].IsConfirmed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].IsRejected)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Order)
+        {
+            <tr>
+                @if (User.IsInRole("SalesManager") || User.IsInRole("Administrator"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Buyer.UserName)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket.Session.MovieName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket.Session.SessionTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket.RowNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket.SeatNumber)
+                </td>
+                @if ((User.IsInRole("SalesManager") || User.IsInRole("Administrator")) && (!item.IsConfirmed && !item.IsRejected))
+                {
+                    <td>
+                        <form method="post" asp-page-handler="Confirm">
+                            <input type="hidden" name="id" asp-for="@item.Id" />
+                            <input type="submit" value="Подтвердить" class="btn btn-primary" />
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" asp-page-handler="Reject">
+                            <input type="hidden" name="id" asp-for="@item.Id" />
+                            <input type="submit" value="Отклонить" class="btn btn-danger" />
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @(item.IsConfirmed ? "Да" : "Нет")
+                    </td>
+                    <td>
+                        @(item.IsRejected ? "Да" : "Нет")
+                    </td>
+                }
+                <td>
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Отменить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,82 @@
+﻿@page "{id:long}"
+@model Cinema.Areas.Session.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Сеанс";
+}
+
+<h1>Покупка билета</h1>
+<h3>Сеанс @Model.Session.MovieName (@Model.Session.SessionTime)</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.Session.SessionTime >= DateTime.UtcNow)
+        {
+            <form method="post">
+            <div class="form-group">
+                <label asp-for="SelectedTicket.Id" class="control-label">Выберите ряд и место</label>
+                <select asp-for="SelectedTicket.Id" class="form-control" asp-items="ViewBag.TicketId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Купить" class="btn btn-primary" />
+            </div>
+            </form>
+        }
+        else
+        {
+            <h5>Сеанс в архиве</h5>
+        }
+    </div>
+</div>
+<br />
+
+@if (User.IsInRole("Administrator"))
+{
+    <p>
+        <a asp-page="Create" asp-route-id="@Model.Id">Добавить билет</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets[0].RowNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets[0].SeatNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets[0].IsBought)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets[0].Session)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Tickets)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RowNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SeatNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsBought)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Session!.MovieName)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

@@ -1,0 +1,51 @@
+﻿@page
+@model Cinema.Pages.OutdatedModel
+@{
+    ViewData["Title"] = "Архивные сеансы";
+}
+
+<h1>Список архивных сеансов</h1>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Поиск по фильму:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Искать" class="btn btn-primary" /> |
+            <a asp-page="./Index">Вернуться к полному списку</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OutdatedSession[0].MovieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutdatedSession[0].SessionTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OutdatedSession)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SessionTime)
+                </td>
+                <td>
+                    <a asp-area="Session" asp-page="/Index" asp-route-id="@item.Id">Купить билет</a>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Редактировать</a>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Детали</a>
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

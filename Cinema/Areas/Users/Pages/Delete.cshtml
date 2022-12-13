@@ -1,0 +1,39 @@
+﻿@page
+@model Cinema.Areas.Users.Pages.DeleteModel
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h1>Удалить</h1>
+
+<h3>Вы действительно хотите удалить этот элемент?</h3>
+<div>
+    <h4>Пользователь</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedUser.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SelectedUser.Id)
+        </dd>
+        <dt class="col-sm-2">
+            Имя пользователя
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SelectedUser.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedUser.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SelectedUser.Email)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="SelectedUser.Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-page="./Index">Вернуться к списку</a>
+    </form>
+</div>
